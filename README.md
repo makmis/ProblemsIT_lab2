@@ -7,5 +7,10 @@
  2. При создании профиля, выяснилось, что отсутсвует программа lftp, устанавливаем ее.
  далее создаем профиль, переходим в каталог /etc/apparmor.d/ в нем: 
  aa-autodep lftp /etc/apparmor.d/usr.bin.lftp
- 3. Запускаем утилиту профилировки: aa-genprof lftp. Далее запускаем программу lftp в новом терминале.
- 
+ 3. Запускаем утилиту профилировки: aa-genprof lftp. Далее запускаем программу lftp в новом терминале. Отработать с помощъю этой команды не получается, выдает ошибку с которой не справиться. Пробовал выполнить то же самое на ubuntu server не получилось.
+ 4. Пошел по другому пути с использованием strace: strace -f -e trace=open,access,execve -o 0strace.log /usr/bin/lftp -u ftp://ftp.cisco.com
+ 5. Далее открыл программу lftp и выполнил скачивание файла с  ftp://ftp.cisco.com /pub/mibs README-MIB.txt .
+ 6. Далее очищаем лог и выбираем то, что нужно программе из системных вызовов: cat Strace.log | cut -d"=" -f1 | cut -d"(" -f2 | sort -u > strace_clear.log .
+ 7. Редактируем профиль /etc/apparmor.d/usr.bin.lftp 
+ 8. cохраняем профиль и подгружаем apparmor_parser -r /etc/apparmor.d/usr.bin.lftp
+ 9. проверяем 
