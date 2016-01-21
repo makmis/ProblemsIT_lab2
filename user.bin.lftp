@@ -1,0 +1,25 @@
+# Last Modified: Thu Jan 21 18:32:56 2016
+#include <tunables/global>
+
+/usr/bin/lftp {
+  #include <abstractions/base>
+  #include <abstractions/nameservice>
+ 
+  /usr/bin/lftp mr,
+
+  /etc/lftp.conf rk,
+  /etc/inputrc r,
+  /etc/localtime r,
+  /etc/terminfo/x/xterm r,
+  /lib/terminfo/x/xterm r,
+ 
+  @{HOME}/.config/lftp/rc r,
+  @{HOME}/.lftprc r,
+  @{HOME}/.netrc r,
+  @{HOME}/.local/share/lftp/cwd_history rwk,
+  @{HOME}/.local/share/lftp/rl_history rwk,
+  @{HOME}/.local/share/lftp/transfer_log ra,
+ 
+
+}
+
